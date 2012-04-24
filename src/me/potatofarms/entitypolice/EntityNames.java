@@ -2,11 +2,12 @@ package me.potatofarms.entitypolice;
 
 public enum EntityNames {
 	Monster							(1, "monster"),
-	Zombie							(2, "zombie"),
-	Skeleton						(3, "skeleton"),
-	Creeper							(4, "creeper"),
-	Spider							(5, "spider"),
-	Wolf							(6, "wolf");
+	Animal							(2, "Animal"),
+	Zombie							(3, "zombie"),
+	Skeleton						(4, "skeleton"),
+	Creeper							(5, "creeper"),
+	Spider							(6, "spider"),
+	Wolf							(7, "wolf");
 	
 	
 	private final Integer id;
