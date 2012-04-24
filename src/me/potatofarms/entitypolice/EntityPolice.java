@@ -15,6 +15,7 @@ import org.bukkit.entity.Animals;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Monster;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Squid;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -77,14 +78,18 @@ public class EntityPolice extends JavaPlugin {
 						continue;
 					}
 					if (validEntityName == true
-							&& !entityName.equalsIgnoreCase("monster")) {
+							&& !entityName.equalsIgnoreCase("monster")
+							&& !entityName.equalsIgnoreCase("animal")
+							&& !entityName.equalsIgnoreCase("mob")
+							&& !entityName.equalsIgnoreCase("squid")) {
 
 						for (LivingEntity f : w.getLivingEntities()) {
 							if (f.getType().toString()
 									.equalsIgnoreCase(entityName)) {
 								total++;
+								continue;
 							}
-							continue;
+
 						}
 
 					} else if (validEntityName == true
@@ -92,22 +97,44 @@ public class EntityPolice extends JavaPlugin {
 						for (LivingEntity f : w.getLivingEntities()) {
 							if (f instanceof Monster) {
 								total++;
+								continue;
 							}
-							continue;
-						}
-					}
 
-					else if (validEntityName == true
+						}
+					} else if (validEntityName == true
 							&& entityName.equalsIgnoreCase("animal")) {
 						for (LivingEntity f : w.getLivingEntities()) {
 							if (f instanceof Animals) {
 								total++;
+								continue;
 							}
-							continue;
 						}
-					}
+					} else if (validEntityName == true
+							&& entityName.equalsIgnoreCase("squid")) {
+						for (LivingEntity f : w.getLivingEntities()) {
+							if (f instanceof Squid) {
+								total++;
+								continue;
+							}
+						}
 
-					else {
+					} else if (validEntityName == true
+							&& entityName.equalsIgnoreCase("mob")) {
+						for (LivingEntity f : w.getLivingEntities()) {
+							if (f instanceof Animals) {
+								total++;
+								continue;
+							} else if (f instanceof Monster) {
+								total++;
+								continue;
+
+							} else if (f instanceof Squid) {
+								total++;
+								continue;
+
+							}
+						}
+					} else {
 						player.sendMessage(ChatColor.RED + "Invalid Entity");
 						return false;
 					}
@@ -124,5 +151,4 @@ public class EntityPolice extends JavaPlugin {
 		}
 		return false;
 	}
-
 }
