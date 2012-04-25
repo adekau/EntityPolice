@@ -143,7 +143,7 @@ public class EntityPolice extends JavaPlugin {
 				PluginDescriptionFile pdffile = this.getDescription();
 
 				player.sendMessage(ChatColor.GOLD + "[" + pdffile.getName()
-						+ "]" + ChatColor.GREEN + " There are " + ChatColor.RED
+						+ "]" + ChatColor.GREEN + " There are " + ChatColor.WHITE
 						+ total.toString() + ChatColor.GREEN + " " + entityName
 						+ "s.");
 			}
