@@ -142,10 +142,10 @@ public class EntityPolice extends JavaPlugin {
 				}
 				PluginDescriptionFile pdffile = this.getDescription();
 
-				player.sendMessage(ChatColor.GREEN + "[" + ChatColor.GOLD
-						+ pdffile.getName() + ChatColor.GREEN + "] There are "
-						+ ChatColor.BLUE + total.toString() + ChatColor.GREEN
-						+ " " + entityName + "s.");
+				player.sendMessage(ChatColor.GOLD + "[" + pdffile.getName()
+						+ "]" + ChatColor.GREEN + " There are " + ChatColor.RED
+						+ total.toString() + ChatColor.GREEN + " " + entityName
+						+ "s.");
 			}
 
 		}
