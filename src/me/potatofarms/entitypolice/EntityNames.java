@@ -9,7 +9,11 @@ public enum EntityNames {
 	Skeleton						(6, "skeleton"),
 	Creeper							(7, "creeper"),
 	Spider							(8, "spider"),
-	Wolf							(9, "wolf");
+	Wolf							(9, "wolf"),
+	Pig								(10, "pig"),
+	Chicken							(11, "chicken"),
+	Cow								(12, "cow"),
+	Sheep							(13, "sheep");
 	
 	
 	private final Integer id;
