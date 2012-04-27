@@ -28,6 +28,7 @@ public class EntityPolice extends JavaPlugin {
 
 		if (commandLabel.equalsIgnoreCase("entitypolice")) {
 			entityCounter ec = new entityCounter();
+			entityRemover er = new entityRemover();
 			String subCommand = args.length > 0 ? args[0].toLowerCase() : "";
 			if (subCommand.equalsIgnoreCase("count")) {
 				// /entitypolice count
@@ -35,8 +36,17 @@ public class EntityPolice extends JavaPlugin {
 				String worldName = args.length == 3 ? args[2].toLowerCase()
 						: "";
 				PluginDescriptionFile pdffile = this.getDescription();
-				String count = ec.countEntity(player, entityName, worldName, pdffile.getName(), args);
+				String count = ec.countEntity(player, entityName, worldName,
+						pdffile.getName(), args);
 				player.sendMessage(count);
+			} else if (subCommand.equalsIgnoreCase("remove")) {
+				String entityName = args[1];
+				String worldName = args.length == 3 ? args[2].toLowerCase()
+						: "";
+				PluginDescriptionFile pdffile = this.getDescription();
+				String remove = er.removeEntities(player, entityName, worldName,
+						pdffile.getName(), args);
+				player.sendMessage(remove);
 			}
 
 		}
