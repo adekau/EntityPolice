@@ -13,8 +13,22 @@ public enum EntityNames {
 	Pig								(10, "pig"),
 	Chicken							(11, "chicken"),
 	Cow								(12, "cow"),
-	Sheep							(13, "sheep");
-	
+	Sheep							(13, "sheep"),
+	Blaze							(14, "blaze"),
+	EnderDragon						(15, "enderdragon"),
+	Ghast							(16, "ghast"),
+	Giant							(17, "giant"),
+	Golem							(18, "golem"),
+	IronGolem						(19, "irongolem"),
+	MagmaCube						(20, "magmacube"),
+	MushroomCow						(21, "mushroomcow"),
+	NPC								(22, "npc"),
+	Ocelot							(23, "ocelot"),
+	PigZombie						(24, "pigzombie"),
+	Silverfish						(25, "silverfish"),
+	Slime							(26, "slime"),
+	Snowman							(27, "snowman"),
+	Villager						(28, "villager");
 	
 	private final Integer id;
 	private final String name;
