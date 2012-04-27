@@ -12,8 +12,12 @@ import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Animals;
+import org.bukkit.entity.Enderman;
 import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.MagmaCube;
 import org.bukkit.entity.Monster;
+import org.bukkit.entity.MushroomCow;
+import org.bukkit.entity.PigZombie;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Squid;
 import org.bukkit.plugin.PluginDescriptionFile;
@@ -88,6 +92,20 @@ public class EntityPolice extends JavaPlugin {
 									.equalsIgnoreCase(entityName)) {
 								total++;
 								continue;
+							} else {
+								if (f instanceof PigZombie) {
+									total++;
+									continue;
+								} else if (f instanceof MagmaCube) {
+									total++;
+									continue;
+								} else if (f instanceof MushroomCow) {
+									total++;
+									continue;
+								} else if (f instanceof Enderman) {
+									total++;
+									continue;
+								}
 							}
 
 						}
@@ -143,9 +161,9 @@ public class EntityPolice extends JavaPlugin {
 				PluginDescriptionFile pdffile = this.getDescription();
 
 				player.sendMessage(ChatColor.GOLD + "[" + pdffile.getName()
-						+ "]" + ChatColor.GREEN + " There are " + ChatColor.WHITE
-						+ total.toString() + ChatColor.GREEN + " " + entityName
-						+ "s.");
+						+ "]" + ChatColor.GREEN + " There are "
+						+ ChatColor.WHITE + total.toString() + ChatColor.GREEN
+						+ " " + entityName + "s.");
 			}
 
 		}

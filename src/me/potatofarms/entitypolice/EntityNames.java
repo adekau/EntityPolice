@@ -20,15 +20,12 @@ public enum EntityNames {
 	Giant							(17, "giant"),
 	Golem							(18, "golem"),
 	IronGolem						(19, "irongolem"),
-	MagmaCube						(20, "magmacube"),
-	MushroomCow						(21, "mushroomcow"),
-	NPC								(22, "npc"),
-	Ocelot							(23, "ocelot"),
-	PigZombie						(24, "pigzombie"),
-	Silverfish						(25, "silverfish"),
-	Slime							(26, "slime"),
-	Snowman							(27, "snowman"),
-	Villager						(28, "villager");
+	NPC								(20, "npc"),
+	Ocelot							(21, "ocelot"),
+	Silverfish						(22, "silverfish"),
+	Slime							(23, "slime"),
+	Snowman							(24, "snowman"),
+	Villager						(25, "villager");
 	
 	private final Integer id;
 	private final String name;
