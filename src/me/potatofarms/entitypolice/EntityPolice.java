@@ -16,12 +16,14 @@ public class EntityPolice extends JavaPlugin {
 
 	@Override
 	public void onEnable() {
-		logger.info("Loaded....");
+		PluginDescriptionFile pdffile = this.getDescription();
+		this.logger.info(pdffile.getName() + " version " + pdffile.getVersion() + " has been enabled.");
 	}
 
 	@Override
 	public void onDisable() {
-
+		PluginDescriptionFile pdffile = this.getDescription();
+		this.logger.info(pdffile.getName() + " has been disabled.");
 	}
 
 	public boolean onCommand(CommandSender sender, Command cmd,
