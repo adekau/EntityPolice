@@ -2,6 +2,8 @@ package me.potatofarms.entitypolice;
 
 import java.util.logging.Logger;
 import me.potatofarms.entitypolice.entityCounter;
+
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -26,27 +28,87 @@ public class EntityPolice extends JavaPlugin {
 			String commandLabel, String[] args) {
 		Player player = (Player) sender;
 
-		if (commandLabel.equalsIgnoreCase("entitypolice")) {
+		if (commandLabel.equalsIgnoreCase("entitypolice") || commandLabel.equalsIgnoreCase("ep")) {
+
 			entityCounter ec = new entityCounter();
 			entityRemover er = new entityRemover();
 			String subCommand = args.length > 0 ? args[0].toLowerCase() : "";
 			if (subCommand.equalsIgnoreCase("count")) {
-				// /entitypolice count
-				String entityName = args[1];
-				String worldName = args.length == 3 ? args[2].toLowerCase()
-						: "";
-				PluginDescriptionFile pdffile = this.getDescription();
-				String count = ec.countEntity(player, entityName, worldName,
-						pdffile.getName(), args);
-				player.sendMessage(count);
+				if (player.hasPermission("entitypolice.count")) {
+
+					// /entitypolice count
+					String entityName = args.length >= 2 ? args[1]
+							.toLowerCase() : "";
+					String worldName = args.length == 3 ? args[2].toLowerCase()
+							: "";
+					PluginDescriptionFile pdffile = this.getDescription();
+					if (args.length >= 2) {
+						String count = ec.countEntity(player, entityName,
+								worldName, pdffile.getName(), args);
+						player.sendMessage(count);
+						return true;
+					} else {
+						return false;
+					}
+				} else {
+					player.sendMessage(ChatColor.RED
+							+ "You do not have permission to do this.");
+					return true;
+				}
+
 			} else if (subCommand.equalsIgnoreCase("remove")) {
-				String entityName = args[1];
-				String worldName = args.length == 3 ? args[2].toLowerCase()
-						: "";
-				PluginDescriptionFile pdffile = this.getDescription();
-				String remove = er.removeEntities(player, entityName, worldName,
-						pdffile.getName(), args);
-				player.sendMessage(remove);
+				if (player.hasPermission("entitypolice.remove")) {
+
+					// /entitypolice count
+					String entityName = args.length >= 2 ? args[1]
+							.toLowerCase() : "";
+					String worldName = args.length == 3 ? args[2].toLowerCase()
+							: "";
+					PluginDescriptionFile pdffile = this.getDescription();
+					if (args.length >= 2) {
+						String remove = er.removeEntities(player, entityName,
+								worldName, pdffile.getName(), args);
+						player.sendMessage(remove);
+						return true;
+					} else {
+						return false;
+					}
+				} else {
+					player.sendMessage(ChatColor.RED
+							+ "You do not have permission to do this.");
+					return true;
+				}
+			} else if (subCommand.equalsIgnoreCase("countnear")) {
+				// String playerName = args.length >= 1 ? args[1] : "";
+				// Player playerC = Bukkit.getServer().getPlayer(playerName);
+				// String mobName = args.length >= 2 ? args[2] : "";
+				// String sr = args.length >= 3 ? args[3] : "";
+				// double x = Double.valueOf(sr);
+				// double y = Double.valueOf(sr);
+				// double z = Double.valueOf(sr);
+				return false;
+
+			} else if (subCommand.equalsIgnoreCase("help")) {
+				if (player.hasPermission("entitypolice.help")) {
+					player.sendMessage(ChatColor.GOLD + "EntityPolice Help:");
+					player.sendMessage(ChatColor.GOLD + "Commands:");
+					player.sendMessage(ChatColor.BLUE + "/entitypolice"
+							+ ChatColor.AQUA
+							+ " count <mob> <(optional) world>"
+							+ ChatColor.YELLOW
+							+ " - Returns the number of <mob> in <world>");
+					player.sendMessage(ChatColor.BLUE
+							+ "/entitypolice"
+							+ ChatColor.AQUA
+							+ " remove <mob> <(optional) world>"
+							+ ChatColor.YELLOW
+							+ " - Removes all the mobs of type <mob> in <world>");
+					return true;
+				} else {
+					player.sendMessage(ChatColor.RED
+							+ "You do not have permission to do this.");
+					return true;
+				}
 			}
 
 		}
