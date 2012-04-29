@@ -6,3 +6,23 @@ version: 0.01
 commands:
    entitypolice:
       description: main command.
+      usage: /<command> <count:remove> <mob> <(optional) world>
+   ep:
+      description: main command.
+      usage: /<command> <count:remove> <mob> <(optional) world>
+permissions:
+    entitypolice.*:
+        description: Gives access to all entitypolice commands.
+        children:
+            entitypolice.help: true
+            entitypolice.count: true
+            entitypolice.remove: true
+    entitypolice.help:
+        description: Gives access to the help command.
+        default: op
+    entitypolice.count:
+        description: Gives access to the count command.
+        default: op
+    entitypolice.remove:
+        description: Gives access to the remove command.
+        default: op
