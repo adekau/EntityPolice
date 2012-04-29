@@ -8,6 +8,8 @@ import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.entity.Animals;
 import org.bukkit.entity.Enderman;
+import org.bukkit.entity.Golem;
+import org.bukkit.entity.IronGolem;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.MagmaCube;
 import org.bukkit.entity.Monster;
@@ -59,6 +61,8 @@ public class entityRemover {
 					&& !entityName.equalsIgnoreCase("PigZombie")
 					&& !entityName.equalsIgnoreCase("MagmaCube")
 					&& !entityName.equalsIgnoreCase("MushroomCow")
+					&& !entityName.equalsIgnoreCase("IronGolem")
+					&& !entityName.equalsIgnoreCase("Golem")
 					&& !entityName.equalsIgnoreCase("Enderman")) {
 				for (LivingEntity f : w.getLivingEntities()) {
 					if (f.getType().toString().equalsIgnoreCase(entityName)) {
@@ -148,6 +152,24 @@ public class entityRemover {
 					&& entityName.equalsIgnoreCase("MushroomCow")) {
 				for (LivingEntity f : w.getLivingEntities()) {
 					if (f instanceof MushroomCow) {
+						total++;
+						f.remove();
+						continue;
+					}
+				}
+			} else if (validEntityName == true
+					&& entityName.equalsIgnoreCase("irongolem")) {
+				for (LivingEntity f : w.getLivingEntities()) {
+					if (f instanceof IronGolem) {
+						total++;
+						f.remove();
+						continue;
+					}
+				}
+			} else if (validEntityName == true
+					&& entityName.equalsIgnoreCase("golem")) {
+				for (LivingEntity f : w.getLivingEntities()) {
+					if (f instanceof Golem) {
 						total++;
 						f.remove();
 						continue;

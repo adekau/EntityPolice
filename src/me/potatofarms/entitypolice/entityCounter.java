@@ -8,6 +8,8 @@ import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.entity.Animals;
 import org.bukkit.entity.Enderman;
+import org.bukkit.entity.Golem;
+import org.bukkit.entity.IronGolem;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.MagmaCube;
 import org.bukkit.entity.Monster;
@@ -17,7 +19,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.entity.Squid;
 
 public class entityCounter {
-	public String countEntity(Player player, String entityName, String worldName, String pluginName, String[] args) {
+	public String countEntity(Player player, String entityName,
+			String worldName, String pluginName, String[] args) {
 		Integer total = 0;
 		List<World> world = new ArrayList<World>();
 		if (args.length == 3 && worldName.equalsIgnoreCase("all")) {
@@ -35,7 +38,7 @@ public class entityCounter {
 		} else if (args.length == 2) {
 			world.add(player.getWorld());
 		} else {
-			
+
 		}
 
 		for (World w : world) {
@@ -58,6 +61,8 @@ public class entityCounter {
 					&& !entityName.equalsIgnoreCase("PigZombie")
 					&& !entityName.equalsIgnoreCase("MagmaCube")
 					&& !entityName.equalsIgnoreCase("MushroomCow")
+					&& !entityName.equalsIgnoreCase("IronGolem")
+					&& !entityName.equalsIgnoreCase("Golem")
 					&& !entityName.equalsIgnoreCase("Enderman")) {
 				for (LivingEntity f : w.getLivingEntities()) {
 					if (f.getType().toString().equalsIgnoreCase(entityName)) {
@@ -141,20 +146,34 @@ public class entityCounter {
 						continue;
 					}
 				}
+			} else if (validEntityName == true
+					&& entityName.equalsIgnoreCase("irongolem")) {
+				for (LivingEntity f : w.getLivingEntities()) {
+					if (f instanceof IronGolem) {
+						total++;
+						continue;
+					}
+				}
+			} else if (validEntityName == true
+					&& entityName.equalsIgnoreCase("golem")) {
+				for (LivingEntity f : w.getLivingEntities()) {
+					if (f instanceof Golem) {
+						total++;
+						continue;
+					}
+				}
 			}
 
 			else {
 
 				return ChatColor.RED + "Invalid Entity";
-				
 
 			}
 			continue;
 		}
-		
 
-		return ChatColor.GOLD + "[" + pluginName + "]"
-				+ ChatColor.GREEN + " There are " + ChatColor.WHITE
-				+ total.toString() + ChatColor.GREEN + " " + entityName + "s.";
+		return ChatColor.GOLD + "[" + pluginName + "]" + ChatColor.GREEN
+				+ " There are " + ChatColor.WHITE + total.toString()
+				+ ChatColor.GREEN + " " + entityName + "s.";
 	}
 }
