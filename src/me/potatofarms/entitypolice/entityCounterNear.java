@@ -2,6 +2,7 @@ package me.potatofarms.entitypolice;
 
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.Monster;
 import org.bukkit.entity.Player;
 
 public class entityCounterNear {
@@ -35,16 +36,23 @@ public class entityCounterNear {
 					continue;
 				}
 			}
+		} else if (validEntityName == true
+				&& entityName.equalsIgnoreCase("monster")) {
+			for (Entity f : playerC.getNearbyEntities(x, y, z)) {
+				if(f instanceof Monster) {
+					all++;
+				}
+			}
 		}
-		
-		
+
 		else {
 			return ChatColor.RED + "Invalid Entity.";
 		}
 
 		return ChatColor.GOLD + "[" + pluginName + "]" + ChatColor.GREEN
 				+ " There are " + ChatColor.WHITE + all.toString()
-				+ ChatColor.GREEN + " " + entityName + "s near " + playerC.getName();
+				+ ChatColor.GREEN + " " + entityName + "s near "
+				+ playerC.getName();
 
 	}
 }
