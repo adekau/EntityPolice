@@ -17,6 +17,8 @@ permissions:
             entitypolice.help: true
             entitypolice.count: true
             entitypolice.remove: true
+            entitypolice.removenear: true
+            entitypolice.countnear: true
     entitypolice.help:
         description: Gives access to the help command.
         default: op
