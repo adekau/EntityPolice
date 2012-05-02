@@ -1,7 +1,7 @@
 name: Entity Police
 main: me.potatofarms.entitypolice.EntityPolice
 description: control them entities!
-version: 0.1
+version: 0.2
 
 commands:
    entitypolice:
