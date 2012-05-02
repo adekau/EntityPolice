@@ -93,9 +93,25 @@ public class EntityPolice extends JavaPlugin {
 				double y = Double.valueOf(sr);
 				double z = Double.valueOf(sr);
 				PluginDescriptionFile pdffile = this.getDescription();
-				String countnear = ecn.countEntitiesNear(playerC, x, y, z, mobName, pdffile.getName());
+				String countnear = ecn.countEntitiesNear(playerC, x, y, z,
+						mobName, pdffile.getName());
 				player.sendMessage(countnear);
 				return true;
+			} else if (subCommand.equalsIgnoreCase("removenear")) {
+				entityRemoverNear ern = new entityRemoverNear();
+				String playerName = args.length >= 1 ? args[1] : "";
+				Player playerC = Bukkit.getServer().getPlayer(playerName);
+				String mobName = args.length >= 2 ? args[2] : "";
+				String sr = args.length >= 3 ? args[3] : "";
+				double x = Double.valueOf(sr);
+				double y = Double.valueOf(sr);
+				double z = Double.valueOf(sr);
+				PluginDescriptionFile pdffile = this.getDescription();
+				String countnear = ern.removeEntitiesNear(playerC, x, y, z,
+						mobName, pdffile.getName());
+				player.sendMessage(countnear);
+				return true;
+
 			} else if (subCommand.equalsIgnoreCase("help")) {
 				if (player.hasPermission("entitypolice.help")) {
 					player.sendMessage(ChatColor.GOLD + "EntityPolice Help:");
