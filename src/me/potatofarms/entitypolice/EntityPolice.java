@@ -127,6 +127,18 @@ public class EntityPolice extends JavaPlugin {
 							+ " remove <mob> <(optional) world>"
 							+ ChatColor.YELLOW
 							+ " - Removes all the mobs of type <mob> in <world>");
+					player.sendMessage(ChatColor.BLUE
+							+ "/entitypolice"
+							+ ChatColor.AQUA
+							+ " removenear <player> <mob> <radius>"
+							+ ChatColor.YELLOW
+							+ " - Removes all mobs of type <mob> around player <player> within the radius of <radius>");
+					player.sendMessage(ChatColor.BLUE
+							+ "/entitypolice"
+							+ ChatColor.AQUA
+							+ " countnear <player> <mob> <radius>"
+							+ ChatColor.YELLOW
+							+ " - Counts all mobs of type <mob> around player <player> within the radius of <radius>");
 					return true;
 				} else {
 					player.sendMessage(ChatColor.RED
