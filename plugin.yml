@@ -6,10 +6,10 @@ version: 0.2
 commands:
    entitypolice:
       description: main command.
-      usage: /<command> <count:remove> <mob> <(optional) world>
+      usage: /<command> <count:remove:countnear:removenear> <mob> <(optional) world>
    ep:
       description: main command.
-      usage: /<command> <count:remove> <mob> <(optional) world>
+      usage: /<command> <count:remove:countnear:removenear> <mob> <(optional) world>
 permissions:
     entitypolice.*:
         description: Gives access to all entitypolice commands.
@@ -25,4 +25,10 @@ permissions:
         default: op
     entitypolice.remove:
         description: Gives access to the remove command.
+        default: op
+    entitypolice.removenear: 
+        description: Gives access to the removenear command.
+        default: op
+    entitypolice.countnear:
+        description: Gives access to the countnear command.
         default: op
