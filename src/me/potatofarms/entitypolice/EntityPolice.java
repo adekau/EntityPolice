@@ -85,19 +85,25 @@ public class EntityPolice extends JavaPlugin {
 				}
 			} else if (subCommand.equalsIgnoreCase("countnear")) {
 				if (player.hasPermission("entitypolice.countnear")) {
-					entityCounterNear ecn = new entityCounterNear();
-					String playerName = args.length >= 1 ? args[1] : "";
-					Player playerC = Bukkit.getServer().getPlayer(playerName);
-					String mobName = args.length >= 2 ? args[2] : "";
-					String sr = args.length >= 3 ? args[3] : "";
-					double x = Double.valueOf(sr);
-					double y = Double.valueOf(sr);
-					double z = Double.valueOf(sr);
-					PluginDescriptionFile pdffile = this.getDescription();
-					String countnear = ecn.countEntitiesNear(playerC, x, y, z,
-							mobName, pdffile.getName());
-					player.sendMessage(countnear);
-					return true;
+					if(args.length == 4) {
+						entityCounterNear ecn = new entityCounterNear();
+						String playerName = args.length >= 1 ? args[1] : "";
+						Player playerC = Bukkit.getServer().getPlayer(playerName);
+						String mobName = args.length >= 2 ? args[2] : "";
+						String sr = args.length >= 3 ? args[3] : "";
+						double x = Double.valueOf(sr);
+						double y = Double.valueOf(sr);
+						double z = Double.valueOf(sr);
+						PluginDescriptionFile pdffile = this.getDescription();
+						String countnear = ecn.countEntitiesNear(playerC, x, y, z,
+								mobName, pdffile.getName());
+						player.sendMessage(countnear);
+						return true;
+					}
+					else {
+						player.sendMessage(ChatColor.GOLD + "Syntax: " + ChatColor.GREEN + "/entitypolice countnear " + ChatColor.WHITE + "[Player] [Mob] [Radius]");
+						return true;
+					}
 				} else {
 					player.sendMessage(ChatColor.RED
 							+ "You do not have permission to do this.");
@@ -105,19 +111,25 @@ public class EntityPolice extends JavaPlugin {
 				}
 			} else if (subCommand.equalsIgnoreCase("removenear")) {
 				if (player.hasPermission("entitypolice.removenear")) {
-					entityRemoverNear ern = new entityRemoverNear();
-					String playerName = args.length >= 1 ? args[1] : "";
-					Player playerC = Bukkit.getServer().getPlayer(playerName);
-					String mobName = args.length >= 2 ? args[2] : "";
-					String sr = args.length >= 3 ? args[3] : "";
-					double x = Double.valueOf(sr);
-					double y = Double.valueOf(sr);
-					double z = Double.valueOf(sr);
-					PluginDescriptionFile pdffile = this.getDescription();
-					String countnear = ern.removeEntitiesNear(playerC, x, y, z,
-							mobName, pdffile.getName());
-					player.sendMessage(countnear);
-					return true;
+					if(args.length == 4) {
+						entityRemoverNear ern = new entityRemoverNear();
+						String playerName = args.length >= 1 ? args[1] : "";
+						Player playerC = Bukkit.getServer().getPlayer(playerName);
+						String mobName = args.length >= 2 ? args[2] : "";
+						String sr = args.length >= 3 ? args[3] : "";
+						double x = Double.valueOf(sr);
+						double y = Double.valueOf(sr);
+						double z = Double.valueOf(sr);
+						PluginDescriptionFile pdffile = this.getDescription();
+						String countnear = ern.removeEntitiesNear(playerC, x, y, z,
+								mobName, pdffile.getName());
+						player.sendMessage(countnear);
+						return true;
+					}
+					else {
+						player.sendMessage(ChatColor.GOLD + "Syntax: " + ChatColor.GREEN + "/entitypolice removenear " + ChatColor.WHITE + "[Player] [Mob] [Radius]");
+						return true;
+					}
 				} else {
 					player.sendMessage(ChatColor.RED
 							+ "You do not have permission to do this.");

@@ -29,7 +29,12 @@ public enum EntityNames {
 	Slime							(26, "slime"),
 	Snowman							(27, "snowman"),
 	Villager						(28, "villager"),
-	Enderman						(29, "Enderman");
+	Enderman						(29, "Enderman"),
+	Bat								(30, "Bat"),
+	Witch							(31, "witch"),
+	Wither							(32, "wither"),
+	WitherSkeleton					(33, "witherskeleton"),
+	ZombieVillager					(34, "zombievillager");
 	
 	private final Integer id;
 	private final String name;

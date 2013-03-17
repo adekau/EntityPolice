@@ -16,7 +16,10 @@ import org.bukkit.entity.Monster;
 import org.bukkit.entity.MushroomCow;
 import org.bukkit.entity.PigZombie;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Skeleton;
 import org.bukkit.entity.Squid;
+import org.bukkit.entity.Zombie;
+import org.bukkit.entity.Skeleton.SkeletonType;
 
 public class entityRemover {
 	public String removeEntities(Player player, String entityName,
@@ -63,6 +66,10 @@ public class entityRemover {
 					&& !entityName.equalsIgnoreCase("MushroomCow")
 					&& !entityName.equalsIgnoreCase("IronGolem")
 					&& !entityName.equalsIgnoreCase("Golem")
+					&& !entityName.equalsIgnoreCase("Skeleton")
+					&& !entityName.equalsIgnoreCase("WitherSkeleton")
+					&& !entityName.equalsIgnoreCase("Zombie")
+					&& !entityName.equalsIgnoreCase("ZombieVillager")
 					&& !entityName.equalsIgnoreCase("Enderman")) {
 				for (LivingEntity f : w.getLivingEntities()) {
 					if (f.getType().toString().equalsIgnoreCase(entityName)) {
@@ -146,6 +153,50 @@ public class entityRemover {
 						total++;
 						f.remove();
 						continue;
+					}
+				}
+			} else if (validEntityName == true
+					&& entityName.equalsIgnoreCase("Skeleton")) {
+				for (LivingEntity f : w.getLivingEntities()) {
+					if (f instanceof Skeleton) {
+						if(((Skeleton) f).getSkeletonType() == SkeletonType.NORMAL) {
+							total++;
+							f.remove();
+							continue;
+						}
+					}
+				}
+			} else if (validEntityName == true
+					&& entityName.equalsIgnoreCase("WitherSkeleton")) {
+				for (LivingEntity f : w.getLivingEntities()) {
+					if (f instanceof Skeleton) {
+						if(((Skeleton) f).getSkeletonType() == SkeletonType.WITHER) {
+							total++;
+							f.remove();
+							continue;
+						}
+					}
+				}
+			} else if (validEntityName == true
+					&& entityName.equalsIgnoreCase("Zombie")) {
+				for (LivingEntity f : w.getLivingEntities()) {
+					if (f instanceof Zombie) {
+						if(((Zombie) f).isVillager() == false) {
+							total++;
+							f.remove();
+							continue;
+						}
+					}
+				}
+			} else if (validEntityName == true
+					&& entityName.equalsIgnoreCase("ZombieVillager")) {
+				for (LivingEntity f : w.getLivingEntities()) {
+					if (f instanceof Zombie) {
+						if(((Zombie) f).isVillager() == true) {
+							total++;
+							f.remove();
+							continue;
+						}
 					}
 				}
 			} else if (validEntityName == true

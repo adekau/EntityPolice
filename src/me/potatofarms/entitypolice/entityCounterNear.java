@@ -11,7 +11,10 @@ import org.bukkit.entity.Monster;
 import org.bukkit.entity.MushroomCow;
 import org.bukkit.entity.PigZombie;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Skeleton;
 import org.bukkit.entity.Squid;
+import org.bukkit.entity.Zombie;
+import org.bukkit.entity.Skeleton.SkeletonType;
 
 public class entityCounterNear {
 	public String countEntitiesNear(Player playerC, double x, double y,
@@ -37,6 +40,10 @@ public class entityCounterNear {
 				&& !entityName.equalsIgnoreCase("MushroomCow")
 				&& !entityName.equalsIgnoreCase("IronGolem")
 				&& !entityName.equalsIgnoreCase("Golem")
+				&& !entityName.equalsIgnoreCase("Skeleton")
+				&& !entityName.equalsIgnoreCase("WitherSkeleton")
+				&& !entityName.equalsIgnoreCase("Zombie")
+				&& !entityName.equalsIgnoreCase("ZombieVillager")
 				&& !entityName.equalsIgnoreCase("Enderman")) {
 			for (Entity f : playerC.getNearbyEntities(x, y, z)) {
 				if (f.getType().toString().equalsIgnoreCase(entityName)) {
@@ -106,6 +113,37 @@ public class entityCounterNear {
 				&& entityName.equalsIgnoreCase("PigZombie")) {
 			for (Entity f : playerC.getNearbyEntities(x, y, z)) {
 				if (f instanceof Monster) {
+					all++;
+				}
+			}
+		} else if (validEntityName == true
+				&& entityName.equalsIgnoreCase("Skeleton")) {
+			for (Entity f : playerC.getNearbyEntities(x, y, z)) {
+				if (f instanceof Skeleton) {
+					if(((Skeleton) f).getSkeletonType() == SkeletonType.NORMAL) {
+						all++;	
+					}
+					
+				}
+			}
+		} else if (validEntityName == true
+				&& entityName.equalsIgnoreCase("WitherSkeleton")) {
+			for (Entity f : playerC.getNearbyEntities(x, y, z)) {
+				if(((Skeleton) f).getSkeletonType() == SkeletonType.WITHER) {
+					all++;	
+				}
+			}
+		} else if (validEntityName == true
+				&& entityName.equalsIgnoreCase("Zombie")) {
+			for (Entity f : playerC.getNearbyEntities(x, y, z)) {
+				if(((Zombie) f).isVillager() == false) {
+					all++;
+				}
+			}
+		} else if (validEntityName == true
+				&& entityName.equalsIgnoreCase("ZombieVillager")) {
+			for (Entity f : playerC.getNearbyEntities(x, y, z)) {
+				if(((Zombie) f).isVillager() == true) {
 					all++;
 				}
 			}
