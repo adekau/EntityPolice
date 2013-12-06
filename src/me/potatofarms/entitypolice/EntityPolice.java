@@ -1,12 +1,19 @@
 package me.potatofarms.entitypolice;
 
+import me.potatofarms.entitypolice.EntityNames;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
-import me.potatofarms.entitypolice.entityCounter;
-import me.potatofarms.entitypolice.entityCounterNear;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Animals;
+import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Monster;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -17,161 +24,105 @@ public class EntityPolice extends JavaPlugin {
 
 	@Override
 	public void onEnable() {
-		PluginDescriptionFile pdffile = this.getDescription();
-		this.logger.info(pdffile.getName() + " version " + pdffile.getVersion()
-				+ " has been enabled.");
+		logger.info("Loaded....");
 	}
 
 	@Override
 	public void onDisable() {
-		PluginDescriptionFile pdffile = this.getDescription();
-		this.logger.info(pdffile.getName() + " has been disabled.");
+
 	}
 
 	public boolean onCommand(CommandSender sender, Command cmd,
 			String commandLabel, String[] args) {
 		Player player = (Player) sender;
 
-		if (commandLabel.equalsIgnoreCase("entitypolice")
-				|| commandLabel.equalsIgnoreCase("ep")) {
-
-			entityCounter ec = new entityCounter();
-			entityRemover er = new entityRemover();
+		if (commandLabel.equalsIgnoreCase("entitypolice")) {
 			String subCommand = args.length > 0 ? args[0].toLowerCase() : "";
 			if (subCommand.equalsIgnoreCase("count")) {
-				if (player.hasPermission("entitypolice.count")) {
-
-					// /entitypolice count
-					String entityName = args.length >= 2 ? args[1]
-							.toLowerCase() : "";
-					String worldName = args.length == 3 ? args[2].toLowerCase()
-							: "";
-					PluginDescriptionFile pdffile = this.getDescription();
-					if (args.length >= 2) {
-						String count = ec.countEntity(player, entityName,
-								worldName, pdffile.getName(), args);
-						player.sendMessage(count);
-						return true;
+				// /entitypolice count
+				String entityName = args[1];
+				String worldName = args.length == 3 ? args[2].toLowerCase()
+						: "";
+				Integer total = 0;
+				List<World> world = new ArrayList<World>();
+				if (args.length == 3 && worldName.equalsIgnoreCase("all")) {
+					for (World w : Bukkit.getServer().getWorlds()) {
+						world.add(w);
+						continue;
+					}
+				} else if (args.length == 3) {
+					if (Bukkit.getServer().getWorld(worldName) == null) {
+						player.sendMessage(ChatColor.RED + "Invalid world.");
+						return false;
 					} else {
+						world.add(Bukkit.getServer().getWorld(worldName));
+					}
+
+				} else if (args.length == 2) {
+					world.add(player.getWorld());
+				} else {
+					return false;
+				}
+
+				for (World w : world) {
+
+					Boolean validEntityName = false;
+					for (EntityNames en : EntityNames.values()) {
+						String theName = en.getName();
+						if (theName.equalsIgnoreCase(entityName)) {
+							validEntityName = true;
+						} else {
+
+						}
+						continue;
+					}
+					if (validEntityName == true
+							&& !entityName.equalsIgnoreCase("monster")) {
+
+						for (LivingEntity f : w.getLivingEntities()) {
+							if (f.getType().toString()
+									.equalsIgnoreCase(entityName)) {
+								total++;
+							}
+							continue;
+						}
+
+					} else if (validEntityName == true
+							&& entityName.equalsIgnoreCase("monster")) {
+						for (LivingEntity f : w.getLivingEntities()) {
+							if (f instanceof Monster) {
+								total++;
+							}
+							continue;
+						}
+					}
+
+					else if (validEntityName == true
+							&& entityName.equalsIgnoreCase("animal")) {
+						for (LivingEntity f : w.getLivingEntities()) {
+							if (f instanceof Animals) {
+								total++;
+							}
+							continue;
+						}
+					}
+
+					else {
+						player.sendMessage(ChatColor.RED + "Invalid Entity");
 						return false;
 					}
-				} else {
-					player.sendMessage(ChatColor.RED
-							+ "You do not have permission to do this.");
-					return true;
+					continue;
 				}
+				PluginDescriptionFile pdffile = this.getDescription();
 
-			} else if (subCommand.equalsIgnoreCase("remove")) {
-				if (player.hasPermission("entitypolice.remove")) {
-
-					// /entitypolice count
-					String entityName = args.length >= 2 ? args[1]
-							.toLowerCase() : "";
-					String worldName = args.length == 3 ? args[2].toLowerCase()
-							: "";
-					PluginDescriptionFile pdffile = this.getDescription();
-					if (args.length >= 2) {
-						String remove = er.removeEntities(player, entityName,
-								worldName, pdffile.getName(), args);
-						player.sendMessage(remove);
-						return true;
-					} else {
-						return false;
-					}
-				} else {
-					player.sendMessage(ChatColor.RED
-							+ "You do not have permission to do this.");
-					return true;
-				}
-			} else if (subCommand.equalsIgnoreCase("countnear")) {
-				if (player.hasPermission("entitypolice.countnear")) {
-					if(args.length == 4) {
-						entityCounterNear ecn = new entityCounterNear();
-						String playerName = args.length >= 1 ? args[1] : "";
-						Player playerC = Bukkit.getServer().getPlayer(playerName);
-						String mobName = args.length >= 2 ? args[2] : "";
-						String sr = args.length >= 3 ? args[3] : "";
-						double x = Double.valueOf(sr);
-						double y = Double.valueOf(sr);
-						double z = Double.valueOf(sr);
-						PluginDescriptionFile pdffile = this.getDescription();
-						String countnear = ecn.countEntitiesNear(playerC, x, y, z,
-								mobName, pdffile.getName());
-						player.sendMessage(countnear);
-						return true;
-					}
-					else {
-						player.sendMessage(ChatColor.GOLD + "Syntax: " + ChatColor.GREEN + "/entitypolice countnear " + ChatColor.WHITE + "[Player] [Mob] [Radius]");
-						return true;
-					}
-				} else {
-					player.sendMessage(ChatColor.RED
-							+ "You do not have permission to do this.");
-					return true;
-				}
-			} else if (subCommand.equalsIgnoreCase("removenear")) {
-				if (player.hasPermission("entitypolice.removenear")) {
-					if(args.length == 4) {
-						entityRemoverNear ern = new entityRemoverNear();
-						String playerName = args.length >= 1 ? args[1] : "";
-						Player playerC = Bukkit.getServer().getPlayer(playerName);
-						String mobName = args.length >= 2 ? args[2] : "";
-						String sr = args.length >= 3 ? args[3] : "";
-						double x = Double.valueOf(sr);
-						double y = Double.valueOf(sr);
-						double z = Double.valueOf(sr);
-						PluginDescriptionFile pdffile = this.getDescription();
-						String countnear = ern.removeEntitiesNear(playerC, x, y, z,
-								mobName, pdffile.getName());
-						player.sendMessage(countnear);
-						return true;
-					}
-					else {
-						player.sendMessage(ChatColor.GOLD + "Syntax: " + ChatColor.GREEN + "/entitypolice removenear " + ChatColor.WHITE + "[Player] [Mob] [Radius]");
-						return true;
-					}
-				} else {
-					player.sendMessage(ChatColor.RED
-							+ "You do not have permission to do this.");
-					return true;
-				}
-
-			} else if (subCommand.equalsIgnoreCase("help")) {
-				if (player.hasPermission("entitypolice.help")) {
-					player.sendMessage(ChatColor.GOLD + "EntityPolice Help:");
-					player.sendMessage(ChatColor.GOLD + "Commands:");
-					player.sendMessage(ChatColor.BLUE + "/entitypolice"
-							+ ChatColor.AQUA
-							+ " count <mob> <(optional) world>"
-							+ ChatColor.YELLOW
-							+ " - Returns the number of <mob> in <world>");
-					player.sendMessage(ChatColor.BLUE
-							+ "/entitypolice"
-							+ ChatColor.AQUA
-							+ " remove <mob> <(optional) world>"
-							+ ChatColor.YELLOW
-							+ " - Removes all the mobs of type <mob> in <world>");
-					player.sendMessage(ChatColor.BLUE
-							+ "/entitypolice"
-							+ ChatColor.AQUA
-							+ " removenear <player> <mob> <radius>"
-							+ ChatColor.YELLOW
-							+ " - Removes all mobs of type <mob> around player <player> within the radius of <radius>");
-					player.sendMessage(ChatColor.BLUE
-							+ "/entitypolice"
-							+ ChatColor.AQUA
-							+ " countnear <player> <mob> <radius>"
-							+ ChatColor.YELLOW
-							+ " - Counts all mobs of type <mob> around player <player> within the radius of <radius>");
-					return true;
-				} else {
-					player.sendMessage(ChatColor.RED
-							+ "You do not have permission to do this.");
-					return true;
-				}
+				player.sendMessage(ChatColor.GREEN + "[" + ChatColor.GOLD
+						+ pdffile.getName() + ChatColor.GREEN + "] There are "
+						+ ChatColor.BLUE + total.toString() + ChatColor.GREEN
+						+ " " + entityName + "s.");
 			}
 
 		}
 		return false;
 	}
+
 }

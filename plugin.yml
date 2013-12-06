@@ -1,36 +1,8 @@
 name: Entity Police
 main: me.potatofarms.entitypolice.EntityPolice
-description: Control them Entities!
-version: 0.2.2
+description: control them entities!
+version: 0.01
 
 commands:
    entitypolice:
       description: main command.
-      usage: /<command> <count:remove:countnear:removenear> <mob> <(optional) world>
-   ep:
-      description: main command.
-      usage: /<command> <count:remove:countnear:removenear> <mob> <(optional) world>
-permissions:
-    entitypolice.*:
-        description: Gives access to all entitypolice commands.
-        children:
-            entitypolice.help: true
-            entitypolice.count: true
-            entitypolice.remove: true
-            entitypolice.removenear: true
-            entitypolice.countnear: true
-    entitypolice.help:
-        description: Gives access to the help command.
-        default: op
-    entitypolice.count:
-        description: Gives access to the count command.
-        default: op
-    entitypolice.remove:
-        description: Gives access to the remove command.
-        default: op
-    entitypolice.removenear: 
-        description: Gives access to the removenear command.
-        default: op
-    entitypolice.countnear:
-        description: Gives access to the countnear command.
-        default: op
